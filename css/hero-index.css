@@ -1,0 +1,51 @@
+/* ═══════════════════════════════════════════════════════════════
+   STYLE 3 — DISSOLVE
+   Las animaciones NO corren hasta que el JS agrega
+   .hero-anim-ready al section, garantizando sincronía
+   con el loader.
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Estado inicial: ocultos antes de que JS active la anim ─── */
+.hero-index-section h1,
+.hero-index-section p,
+.hero-index-section .flex.gap-6 {
+  opacity: 0;
+}
+
+/* ── Imagen: fade + blur que se aclara ───────────────────────── */
+@keyframes d-img-clear {
+  from { opacity: 0; filter: blur(8px); transform: scale(1.04); }
+  40%  { opacity: 1; }
+  to   { opacity: 1; filter: blur(0px); transform: scale(1.0);  }
+}
+.hero-index-section.hero-anim-ready > div:first-child img {
+  animation: d-img-clear 3s cubic-bezier(0.25, 0.1, 0, 1) 0.1s both;
+}
+
+/* ── "PUSH": blur lateral que se limpia ──────────────────────── */
+@keyframes d-title-blur {
+  from { opacity: 0; filter: blur(12px); transform: translateY(10px); }
+  to   { opacity: 1; filter: blur(0px);  transform: translateY(0);    }
+}
+.hero-index-section.hero-anim-ready h1 {
+  animation: d-title-blur 1.6s cubic-bezier(0.25, 0.1, 0, 1) 0.7s both;
+}
+
+/* ── "YOUR LIMITS": un beat después ──────────────────────────── */
+.hero-index-section.hero-anim-ready h1 span {
+  display: block;
+  animation: d-title-blur 1.6s cubic-bezier(0.25, 0.1, 0, 1) 1s both;
+}
+
+/* ── Párrafo y botones: juntos, al mismo tiempo ──────────────── */
+@keyframes d-fade {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-index-section.hero-anim-ready p {
+  animation: d-fade 1.2s ease 1.6s both;
+}
+.hero-index-section.hero-anim-ready .flex.gap-6 {
+  animation: d-fade 1.2s ease 1.6s both;
+}
+
