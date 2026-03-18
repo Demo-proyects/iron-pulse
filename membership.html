@@ -8,6 +8,7 @@
 <meta name="description" content="Iron Pulse Montréal — Choisissez votre formule et commencez votre transformation. Aucun frais d'inscription.">
 <link rel="preload" href="font/BebasNeue-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="font/Oswald-VariableFont_wght.woff2" as="font" type="font/woff2" crossorigin>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <link rel="preload" as="script" href="js/index.js">
 <script src="js/index.js" defer></script>
 <link rel="stylesheet" href="css/index.css">
@@ -337,7 +338,7 @@ body { background:var(--blk); color:var(--w); font-family:'Inter',sans-serif; ov
         <span class="stat-l">Formules</span>
       </div>
     </div>
-    <a class="cta-btn" href="membership.html">Choisir ma formule</a>
+    <button class="cta-btn" type="button">Choisir ma formule</button>
   </div>
  
   <div class="badge">
@@ -558,7 +559,7 @@ body { background:var(--blk); color:var(--w); font-family:'Inter',sans-serif; ov
   </div>
 </section>
 <footer></footer>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function(){
   'use strict';
 
@@ -609,13 +610,10 @@ body { background:var(--blk); color:var(--w); font-family:'Inter',sans-serif; ov
 
   document.querySelectorAll('.rev,.plan-card,.faq-item,.cta-inner').forEach(function(el){ io.observe(el); });
 
-})();
-
-/* CTA → scroll al toggle + demo anual */
-  var ctaBtn = document.querySelector('a.cta-btn[href="membership.html"]');
+  /* CTA → scroll au toggle + démo annuel */
+  var ctaBtn = document.querySelector('button.cta-btn');
   if(ctaBtn){
-    ctaBtn.addEventListener('click', function(e){
-      e.preventDefault();
+    ctaBtn.addEventListener('click', function(){
       var toggle = document.querySelector('.toggle-section');
       if(!toggle) return;
       var offset = window.innerWidth < 768 ? 60 : 10;
@@ -631,6 +629,8 @@ body { background:var(--blk); color:var(--w); font-family:'Inter',sans-serif; ov
       }, 600);
     });
   }
+
+})();
 </script>
 </body>
 </html>
