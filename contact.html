@@ -414,35 +414,311 @@
           <label for="phone" class="block font-athletic text-sm mb-2">Téléphone</label>
           <input type="tel" id="phone" name="phone" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors">
         </div>
-        <div>
-          <label for="subject" class="block font-athletic text-sm mb-2">Sujet</label>
-          <select id="subject" name="subject" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors">
-            <option value="general">Renseignement général</option>
-            <option value="membership">Abonnement</option>
-            <option value="training">Entraînement personnel</option>
-            <option value="classes">Cours en groupe</option>
-          </select>
+<!-- ── CUSTOM DROPDOWNS CSS ── -->
+<style>
+/* Base */
+.ipd-wrap{position:relative;user-select:none;}
+.ipd-trigger{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  width:100%;padding:0 18px;height:52px;background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.09);cursor:pointer;
+  transition:border-color .22s,background .22s;}
+.ipd-trigger:hover{background:rgba(255,255,255,.06);border-color:rgba(255,95,31,.25);}
+.ipd-wrap.open .ipd-trigger{border-color:rgba(255,95,31,.45);background:rgba(255,95,31,.04);}
+
+.ipd-trigger-left{display:flex;align-items:center;gap:12px;min-width:0;}
+.ipd-avatar-wrap{width:34px;height:34px;border-radius:50%;overflow:hidden;flex-shrink:0;
+  border:1.5px solid rgba(255,95,31,.3);display:none;}
+.ipd-avatar-wrap img{width:100%;height:100%;object-fit:cover;object-position:top;}
+.ipd-avatar-wrap.visible{display:block;}
+.ipd-trigger-icon{width:32px;height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,95,31,.08);border:1px solid rgba(255,95,31,.15);border-radius:4px;display:none;}
+.ipd-trigger-icon.visible{display:flex;}
+.ipd-trigger-icon svg{width:15px;height:15px;stroke:#ff5f1f;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.ipd-trigger-text{min-width:0;}
+.ipd-trigger-label{font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:2.5px;
+  text-transform:uppercase;color:rgba(255,255,255,.28);line-height:1;}
+.ipd-trigger-value{font-family:'Oswald',sans-serif;font-size:.88rem;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;color:#fff;line-height:1.2;margin-top:3px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ipd-trigger-value.placeholder{color:rgba(255,255,255,.3);font-weight:400;}
+.ipd-arrow{flex-shrink:0;width:20px;height:20px;display:flex;align-items:center;justify-content:center;
+  transition:transform .3s cubic-bezier(.4,0,.2,1);}
+.ipd-arrow svg{width:14px;height:14px;stroke:rgba(255,255,255,.35);fill:none;stroke-width:2;stroke-linecap:round;}
+.ipd-wrap.open .ipd-arrow{transform:rotate(180deg);}
+.ipd-wrap.open .ipd-arrow svg{stroke:#ff5f1f;}
+
+/* Panel */
+.ipd-panel{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:200;
+  background:#0f0f0f;border:1px solid rgba(255,95,31,.22);
+  overflow:hidden;
+  max-height:0;opacity:0;
+  transition:max-height .38s cubic-bezier(.4,0,.2,1),opacity .25s ease;}
+.ipd-wrap.open .ipd-panel{max-height:500px;opacity:1;}
+.ipd-panel-inner{padding:6px;}
+
+/* Options — base */
+.ipd-opt{display:flex;align-items:center;gap:14px;padding:11px 14px;
+  cursor:pointer;position:relative;transition:background .18s;border-bottom:1px solid rgba(255,255,255,.04);}
+.ipd-opt:last-child{border-bottom:none;}
+.ipd-opt::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:#ff5f1f;transform:scaleY(0);transition:transform .22s cubic-bezier(.4,0,.2,1);}
+.ipd-opt:hover{background:rgba(255,255,255,.04);}
+.ipd-opt:hover::before{transform:scaleY(1);}
+.ipd-opt.ipd-active{background:rgba(255,95,31,.06);}
+.ipd-opt.ipd-active::before{transform:scaleY(1);}
+
+/* Coach avatar dans option */
+.ipd-opt-avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:top;flex-shrink:0;
+  border:1.5px solid rgba(255,95,31,.2);transition:border-color .2s;}
+.ipd-opt.ipd-active .ipd-opt-avatar{border-color:#ff5f1f;}
+
+/* Icône dans option (sujet/type) */
+.ipd-opt-icon{width:36px;height:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,95,31,.06);border:1px solid rgba(255,95,31,.12);border-radius:4px;
+  transition:background .2s,border-color .2s;}
+.ipd-opt.ipd-active .ipd-opt-icon{background:rgba(255,95,31,.12);border-color:rgba(255,95,31,.3);}
+.ipd-opt-icon svg{width:15px;height:15px;stroke:#ff5f1f;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+
+/* Texte option */
+.ipd-opt-body{flex:1;min-width:0;}
+.ipd-opt-name{font-family:'Oswald',sans-serif;font-size:.84rem;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;color:#fff;line-height:1.2;}
+.ipd-opt-sub{font-family:'Oswald',sans-serif;font-size:.62rem;letter-spacing:2.5px;
+  text-transform:uppercase;color:rgba(255, 89, 24, 0.719);margin-top:3px;}
+
+/* Check */
+.ipd-check{width:18px;height:18px;flex-shrink:0;border:1.5px solid rgba(255,255,255,.15);border-radius:50%;
+  position:relative;transition:border-color .2s;}
+.ipd-opt.ipd-active .ipd-check{border-color:#ff5f1f;}
+.ipd-opt.ipd-active .ipd-check::after{content:'';position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);width:7px;height:7px;border-radius:50%;background:#ff5f1f;}
+
+/* "Pas de préférence" row */
+.ipd-opt-nopref{font-family:'Oswald',sans-serif;font-size:.78rem;letter-spacing:2px;
+  text-transform:uppercase;color:rgba(255,255,255,.28);flex:1;font-weight:400;}
+.ipd-opt.ipd-active .ipd-opt-nopref{color:rgba(255,255,255,.55);}
+</style>
+
+<!-- SUJET -->
+<div>
+  <div class="ipd-wrap" id="ipd-subject">
+    <div class="ipd-trigger">
+      <div class="ipd-trigger-left">
+        <div class="ipd-trigger-icon visible" id="ipd-subject-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
         </div>
-        <div>
-          <label for="coach" class="block font-athletic text-sm mb-2">Coach souhaité</label>
-          <select id="coach" name="coach" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors">
-            <option value="">Pas de préférence</option>
-            <option value="james-carter">James Carter — Force &amp; Hypertrophie</option>
-            <option value="emma-dubois">Emma Dubois — HIIT &amp; Cardio</option>
-            <option value="marcus-fontaine">Marcus Fontaine — Haltérophilie Élite</option>
-            <option value="chen-wei">Chen Wei — Mobilité &amp; Fonctionnel</option>
-          </select>
+        <div class="ipd-trigger-text">
+          <div class="ipd-trigger-label">Sujet</div>
+          <div class="ipd-trigger-value" id="ipd-subject-val">Renseignement général</div>
         </div>
-        <div>
-          <label for="training_type" class="block font-athletic text-sm mb-2">Type d'entraînement</label>
-          <select id="training_type" name="training_type" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors">
-            <option value="">Choisir un type</option>
-            <option value="coaching-prive">Coaching privé (1-on-1)</option>
-            <option value="semi-prive">Semi-privé (2–4 personnes)</option>
-            <option value="programme">Programme personnalisé</option>
-            <option value="bilan">Bilan fitness initial</option>
-          </select>
+      </div>
+      <div class="ipd-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="ipd-panel">
+      <div class="ipd-panel-inner">
+        <div class="ipd-opt ipd-active" data-val="general" data-label="Renseignement général">
+          <div class="ipd-opt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <div class="ipd-opt-body"><div class="ipd-opt-name">Renseignement général</div><div class="ipd-opt-sub">Question ou info</div></div>
+          <div class="ipd-check"></div>
         </div>
+        <div class="ipd-opt" data-val="membership" data-label="Abonnement">
+          <div class="ipd-opt-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
+          <div class="ipd-opt-body"><div class="ipd-opt-name">Abonnement</div><div class="ipd-opt-sub">Formules & tarifs</div></div>
+          <div class="ipd-check"></div>
+        </div>
+        <div class="ipd-opt" data-val="training" data-label="Entraînement personnel">
+          <div class="ipd-opt-icon"><svg viewBox="0 0 24 24"><path d="M6.5 6.5h11M6.5 12h11M6.5 17.5h11M3 6.5h.01M3 12h.01M3 17.5h.01"/></svg></div>
+          <div class="ipd-opt-body"><div class="ipd-opt-name">Entraînement personnel</div><div class="ipd-opt-sub">Programme & coaching</div></div>
+          <div class="ipd-check"></div>
+        </div>
+        <div class="ipd-opt" data-val="classes" data-label="Cours en groupe">
+          <div class="ipd-opt-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div class="ipd-opt-body"><div class="ipd-opt-name">Cours en groupe</div><div class="ipd-opt-sub">Sessions collectives</div></div>
+          <div class="ipd-check"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <input type="hidden" id="subject" name="subject" value="general">
+</div>
+
+<!-- COACH -->
+<div>
+  <div class="ipd-wrap" id="ipd-coach">
+    <div class="ipd-trigger">
+      <div class="ipd-trigger-left">
+        <div class="ipd-avatar-wrap" id="ipd-coach-avatar-wrap"></div>
+<div class="ipd-trigger-icon visible" id="ipd-coach-icon">
+  <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+</div>
+        <div class="ipd-trigger-text">
+          <div class="ipd-trigger-label">Coach</div>
+          <div class="ipd-trigger-value placeholder" id="ipd-coach-val">Pas de préférence</div>
+        </div>
+      </div>
+      <div class="ipd-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="ipd-panel">
+      <div class="ipd-panel-inner">
+        <div class="ipd-opt ipd-active" data-val="" data-label="">
+          <div class="ipd-opt-body"><div class="ipd-opt-nopref">Pas de préférence</div></div>
+          <div class="ipd-check"></div>
+        </div>
+        <div class="ipd-opt" data-val="james-carter" data-label="James Carter" data-img="img/james-wilson.jpg">
+          <img class="ipd-opt-avatar" src="img/james-wilson.jpg" alt="James Carter">
+          <div class="ipd-opt-body"><div class="ipd-opt-name">James Carter</div><div class="ipd-opt-sub">Force &amp; Hypertrophie · 10 ans</div></div>
+          <div class="ipd-check"></div>
+        </div>
+        <div class="ipd-opt" data-val="emma-dubois" data-label="Emma Dubois" data-img="img/emma-davis.jpg">
+          <img class="ipd-opt-avatar" src="img/emma-davis.jpg" alt="Emma Dubois">
+          <div class="ipd-opt-body"><div class="ipd-opt-name">Emma Dubois</div><div class="ipd-opt-sub">HIIT &amp; Cardio · 7 ans</div></div>
+          <div class="ipd-check"></div>
+        </div>
+        <div class="ipd-opt" data-val="marcus-fontaine" data-label="Marcus Fontaine" data-img="img/marcus-stone.jpg">
+          <img class="ipd-opt-avatar" src="img/marcus-stone.jpg" alt="Marcus Fontaine">
+          <div class="ipd-opt-body"><div class="ipd-opt-name">Marcus Fontaine</div><div class="ipd-opt-sub">Haltérophilie Élite · 12 ans</div></div>
+          <div class="ipd-check"></div>
+        </div>
+        <div class="ipd-opt" data-val="chen-wei" data-label="Chen Wei" data-img="img/maya-chen.jpg">
+          <img class="ipd-opt-avatar" src="img/maya-chen.jpg" alt="Chen Wei">
+          <div class="ipd-opt-body"><div class="ipd-opt-name">Chen Wei</div><div class="ipd-opt-sub">Mobilité &amp; Fonctionnel · 9 ans</div></div>
+          <div class="ipd-check"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <input type="hidden" id="coach" name="coach" value="">
+</div>
+
+<!-- TYPE D'ENTRAÎNEMENT -->
+<div>
+  <div class="ipd-wrap" id="ipd-type">
+    <div class="ipd-trigger">
+      <div class="ipd-trigger-left">
+        <div class="ipd-trigger-icon visible" id="ipd-type-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="ipd-trigger-text">
+          <div class="ipd-trigger-label">Type</div>
+          <div class="ipd-trigger-value placeholder" id="ipd-type-val">Choisir un type</div>
+        </div>
+      </div>
+      <div class="ipd-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="ipd-panel">
+      <div class="ipd-panel-inner">
+        <div class="ipd-opt" data-val="coaching-prive" data-label="Coaching privé (1-on-1)">
+          <div class="ipd-opt-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="ipd-opt-body"><div class="ipd-opt-name">Coaching privé</div><div class="ipd-opt-sub">1-on-1 · Programme sur mesure</div></div>
+          <div class="ipd-check"></div>
+        </div>
+        <div class="ipd-opt" data-val="semi-prive" data-label="Semi-privé (2–4 personnes)">
+          <div class="ipd-opt-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div class="ipd-opt-body"><div class="ipd-opt-name">Semi-privé</div><div class="ipd-opt-sub">2–4 personnes · Ambiance motivante</div></div>
+          <div class="ipd-check"></div>
+        </div>
+        <div class="ipd-opt" data-val="programme" data-label="Programme personnalisé">
+          <div class="ipd-opt-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+          <div class="ipd-opt-body"><div class="ipd-opt-name">Programme personnalisé</div><div class="ipd-opt-sub">Plan d'entraînement détaillé</div></div>
+          <div class="ipd-check"></div>
+        </div>
+        <div class="ipd-opt" data-val="bilan" data-label="Bilan fitness initial">
+          <div class="ipd-opt-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div class="ipd-opt-body"><div class="ipd-opt-name">Bilan fitness initial</div><div class="ipd-opt-sub">Évaluation & objectifs</div></div>
+          <div class="ipd-check"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <input type="hidden" id="training_type" name="training_type" value="">
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  function initDropdown(wrapId, hiddenId, displayId, avatarWrapId, iconId) {
+    var wrap    = document.getElementById(wrapId);
+    var hidden  = document.getElementById(hiddenId);
+    var display = document.getElementById(displayId);
+    var avatarW = avatarWrapId ? document.getElementById(avatarWrapId) : null;
+    var iconEl  = iconId      ? document.getElementById(iconId)       : null;
+    if(!wrap||!hidden||!display) return;
+
+    var trigger = wrap.querySelector('.ipd-trigger');
+    var opts    = wrap.querySelectorAll('.ipd-opt');
+
+    trigger.addEventListener('click', function(e){
+      e.stopPropagation();
+      // close other dropdowns
+      document.querySelectorAll('.ipd-wrap.open').forEach(function(w){
+        if(w !== wrap) w.classList.remove('open');
+      });
+      wrap.classList.toggle('open');
+    });
+
+    opts.forEach(function(opt){
+      opt.addEventListener('click', function(e){
+        e.stopPropagation();
+        opts.forEach(function(o){ o.classList.remove('ipd-active'); });
+        opt.classList.add('ipd-active');
+
+        var val   = opt.dataset.val   || '';
+        var label = opt.dataset.label || '';
+        var img   = opt.dataset.img   || '';
+
+        hidden.value = val;
+
+        if(iconEl) { var optIcon = opt.querySelector('.ipd-opt-icon svg');
+        if(optIcon) { iconEl.innerHTML = optIcon.outerHTML;
+        iconEl.classList.add('visible');} }
+
+        if(val === '') {
+          display.textContent = 'Pas de préférence';
+          display.classList.add('placeholder');
+          if(avatarW){ avatarW.innerHTML=''; avatarW.classList.remove('visible'); } if(iconEl)  iconEl.classList.add('visible');
+        } else {
+          display.textContent = label;
+          display.classList.remove('placeholder');
+          if(avatarW && img){
+            avatarW.innerHTML = '<img src="'+img+'" alt="'+label+'">';
+            avatarW.classList.add('visible');
+            if(iconEl) iconEl.classList.remove('visible');
+          } else if(iconEl){
+            iconEl.classList.add('visible');
+          }
+        }
+
+        // Close with small delay so user sees selection
+        setTimeout(function(){ wrap.classList.remove('open'); }, 180);
+      });
+    });
+  }
+
+  // Close on outside click
+  document.addEventListener('click', function(){
+    document.querySelectorAll('.ipd-wrap.open').forEach(function(w){ w.classList.remove('open'); });
+  });
+
+  initDropdown('ipd-subject', 'subject',       'ipd-subject-val', null,              'ipd-subject-icon');
+  initDropdown('ipd-coach', 'coach', 'ipd-coach-val', 'ipd-coach-avatar-wrap', 'ipd-coach-icon');
+  initDropdown('ipd-type',    'training_type', 'ipd-type-val',    null,              'ipd-type-icon');
+
+  // Expose pour contact.js prefill
+  window.ipSelectCoach = function(slug){
+    var opt = document.querySelector('#ipd-coach .ipd-opt[data-val="'+slug+'"]');
+    if(opt) opt.click();
+  };
+  window.ipSelectSubject = function(val){
+    var opt = document.querySelector('#ipd-subject .ipd-opt[data-val="'+val+'"]');
+    if(opt) opt.click();
+  };
+  window.ipSelectType = function(val){
+    var opt = document.querySelector('#ipd-type .ipd-opt[data-val="'+val+'"]');
+    if(opt) opt.click();
+  };
+})();
+</script>
         <div>
           <label for="message" class="block font-athletic text-sm mb-2">Message</label>
           <textarea id="message" name="message" rows="4" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors" required></textarea>
@@ -492,7 +768,7 @@
         <div>
           <h3 class="text-xl font-display mb-2">Contact</h3>
           <p class="font-athletic text-greyPulse">Tél : +1 (809) 878-6115</p>
-          <p class="font-athletic text-greyPulse">info@ironpulse.ca</p>
+          <p class="font-athletic text-greyPulse"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9df4f3fbf2ddf4eff2f3ede8f1eef8b3fefc">[email&#160;protected]</a></p>
         </div>
       </div>
 
@@ -513,6 +789,7 @@
 </section>
 
 <footer></footer>
-
+<script src="js/index.js" defer></script>
+<script src="js/contact.js" defer></script>  <!-- ← ajouter -->
 </body>
 </html>
