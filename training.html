@@ -8,14 +8,18 @@
 <meta name="keywords" content="Iron Pulse, fitness, entraîneurs, classes, programme, contact">
 <meta name="author" content="Iron Pulse">
 <meta name="robots" content="index, follow">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="preload" href="font/BebasNeue-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/Oswald-VariableFont_wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="script" href="js/index.js">
 <script src="js/index.js" defer></script>
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/classes-hero.css">
 <link rel="stylesheet" href="css/Trainers.css">
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="js/Trainers.js" defer></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></head>
-<body class="bg-blackPulse text-white font-sans">
+<script src="js/Trainers.js" defer></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-blackPulse text-white font-sans"><!-- LOADER INLINE - Se muestra inmediatamente -->
+<div id="pg-loader" class="pg-loader" aria-hidden="false"><div class="pg-loader-logo">IRON PULSE<span>.</span></div><div class="pg-bar-track"><div class="pg-bar-fill" id="pg-bar-fill"></div></div></div>
+<style>.pg-loader{position:fixed;inset:0;z-index:9999;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transition:opacity .4s ease}.pg-loader.pg-hide{opacity:0;pointer-events:none}.pg-loader-logo{font-family:"Bebas Neue",sans-serif;font-size:3.5rem;letter-spacing:6px;color:#fff;animation:pg-pulse 1.4s ease-in-out infinite}.pg-loader-logo span{color:#FF5F1F}.pg-bar-track{width:160px;height:2px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}.pg-bar-fill{height:100%;width:0;background:linear-gradient(90deg,#FF5F1F,#ef4444);border-radius:2px;transition:width .25s ease}@keyframes pg-pulse{0%,100%{opacity:1}50%{opacity:.4}}</style>
 <div id="root"><div class="min-h-screen flex flex-col bg-blackPulse"><main class="bg-blackPulse text-white min-h-screen">
 
 <!-- HERO -->

@@ -1,124 +1,518 @@
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/logo.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact — Iron Pulse</title>
-    <meta name="description" content="Contactez Iron Pulse Montréal pour toute question sur nos services, abonnements ou entraînements personnalisés.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <script src="js/index.js" defer></script>
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/hero-index.css">
-    <script src="js/contact.js" defer></script>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Iron Pulse</title>
+  <meta name="description" content="Contactez Iron Pulse Québec pour toute question sur nos services, abonnements ou entraînements personnalisés.">
+  <link rel="preload" href="font/BebasNeue-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="font/Oswald-VariableFont_wght.woff2" as="font" type="font/woff2" crossorigin>
+  <style>.hero-contact{background-image:url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=75&w=640')}@media(min-width:768px){.hero-contact{background-image:url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=1200')}}</style>
+  <link rel="preload" as="script" href="js/index.js">
+  <script src="js/index.js" defer></script>
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body class="bg-blackPulse text-white font-sans">
-<section class="hero-index-section relative h-[60vh] overflow-hidden pt-24">
-  <div class="absolute inset-0">
-    <div style="background-image: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=1200'); background-size: cover; background-position: center center;" class="absolute inset-0">
-      <div class="absolute inset-0 bg-gradient-to-b from-black via-black/40 to-transparent opacity-75"></div>
-      <div class="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-50"></div>
-      <div class="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay"></div>
+
+<!-- LOADER -->
+<div id="pg-loader" class="pg-loader" aria-hidden="false">
+  <div class="pg-loader-logo">IRON PULSE<span>.</span></div>
+  <div class="pg-bar-track"><div class="pg-bar-fill" id="pg-bar-fill"></div></div>
+</div>
+<style>
+.pg-loader{position:fixed;inset:0;z-index:9999;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transition:opacity .4s ease}
+.pg-loader.pg-hide{opacity:0;pointer-events:none}
+.pg-loader-logo{font-family:"Bebas Neue",sans-serif;font-size:3.5rem;letter-spacing:6px;color:#fff;animation:pg-pulse 1.4s ease-in-out infinite}
+.pg-loader-logo span{color:#FF5F1F}
+.pg-bar-track{width:160px;height:2px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.pg-bar-fill{height:100%;width:0;background:linear-gradient(90deg,#FF5F1F,#ef4444);border-radius:2px;transition:width .25s ease}
+@keyframes pg-pulse{0%,100%{opacity:1}50%{opacity:.4}}
+</style>
+
+<!-- ═══════════ HERO CONTACT ═══════════ -->
+<section class="hero-contact" aria-label="Contactez Iron Pulse">
+
+  <div class="hc-photo"
+       class="hero-contact"
+       style="background-image: url(&quot;https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&amp;w=1200&quot;); background-size: cover; background-position: center center; transform: none;"
+       role="img" aria-label="Salle Iron Pulse Québec"></div>
+
+  <div class="hc-vbar"></div>
+
+  <div class="hc-scan" aria-hidden="true"></div>
+  <div class="hc-corner tl" aria-hidden="true"></div>
+  <div class="hc-corner br" aria-hidden="true"></div>
+
+  <div class="hc-right">
+    <div class="hc-tag">— Iron Pulse · Québec —</div>
+
+    <div class="hc-title">
+      ON EST
+      <span class="outline">LÀ POUR TOI</span>
     </div>
+
+    <div class="hc-rule"></div>
+
+    <div class="hc-desc">
+      La meilleure version de toi-même commence ici. Parle-nous.
+      Notre équipe te répond sous 24h.
+    </div>
+
+    <div class="hc-chips">
+      <div class="hc-chip-info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+        </svg>
+        <span>+1 (809) 878-6115</span>
+      </div>
+      <div class="hc-chip-info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span>Répond en &lt; 24h</span>
+      </div>
+    </div>
+
+    <a class="hc-cta" href="#contact-form">Écrire un message</a>
   </div>
-  <div class="relative h-full max-w-7xl mx-auto px-4 flex flex-col justify-center">
-    <div class="max-w-4xl"><h1 class="text-[12vw] lg:text-[10rem] font-display leading-[0.8] tracking-tighter">ÉCRIS<span class="block text-transparent bg-clip-text bg-gradient-to-r from-orangePulse via-red-500 to-yellow-500 animate-gradient-x">NOUS</span></h1></div>
+
+</section>
+
+<style>
+/* ── Hero layout ── */
+.hero-contact {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+/* ── Photo : desktop côté gauche ── */
+.hc-photo {
+  width: clamp(220px, 32vw, 420px);
+  flex-shrink: 0;
+  background-color: #111;
+  background-size: cover;
+  background-position: center top;
+  position: relative;
+}
+.hc-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 60%, #0a0a0a);
+}
+
+/* ── Barre verticale (desktop) ── */
+.hc-vbar {
+  width: 1px;
+  background: rgba(232,92,0,0.35);
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+/* ── Scan ── */
+.hc-scan {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: rgba(232,92,0,0.45);
+  animation: hc-scan 6s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes hc-scan {
+  0%   { top: 0;    opacity: 0; }
+  4%   { opacity: 0.7; }
+  96%  { opacity: 0.7; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* ── Coins HUD ── */
+.hc-corner { position: absolute; width: 16px; height: 16px; z-index: 4; }
+.hc-corner.tl { top: 12px; left: 12px; border-top: 1.5px solid rgba(232,92,0,0.5); border-left: 1.5px solid rgba(232,92,0,0.5); }
+.hc-corner.br { bottom: 12px; right: 12px; border-bottom: 1.5px solid rgba(232,92,0,0.5); border-right: 1.5px solid rgba(232,92,0,0.5); }
+
+/* ── Contenu texte ── */
+.hc-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  padding: clamp(32px, 5vw, 72px);
+  padding-top: clamp(96px, 12vw, 140px);
+  z-index: 1;
+}
+
+.hc-tag {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(10px, 1vw, 12px);
+  letter-spacing: 0.16em;
+  color: #e85c00;
+  text-transform: uppercase;
+}
+
+.hc-title {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.9;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(58px, 9vw, 108px);
+  color: #fff;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+}
+.hc-title .outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px #e85c00;
+}
+
+.hc-rule { width: 42px; height: 2px; background: #e85c00; flex-shrink: 0; }
+
+.hc-desc {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(15px, 1.3vw, 16px);
+  color: rgba(255, 255, 255, 0.60);
+  letter-spacing: 0.05em;
+  line-height: 1.7;
+  max-width: 380px;
+}
+
+.hc-chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 2px 0; }
+.hc-chip-info {
+  display: flex; align-items: center; gap: 7px;
+  background: rgba(232,92,0,0.07);
+  border: 0.5px solid rgba(232,92,0,0.22);
+  border-radius: 3px;
+  padding: 6px 12px;
+}
+.hc-chip-info svg { width: 13px; height: 13px; color: #e85c00; flex-shrink: 0; }
+.hc-chip-info span {
+  font-family: 'Oswald', sans-serif;
+  font-size: 10px;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.hc-cta {
+  display: inline-block;
+  padding: 11px 26px;
+  background: #e85c00;
+  color: #fff;
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  text-decoration: none;
+  align-self: flex-start;
+  transition: background 0.2s, color 0.2s;
+}
+.hc-cta:hover { background: #fff; color: #e85c00; }
+
+/* ══════════════════════════════════════
+   MOBILE : colonne — image haut, texte bas
+   Image occupe ~48vh, texte remplit le reste
+   Pas de min-height limité : le hero prend tout le viewport
+   ══════════════════════════════════════ */
+@media (max-width: 700px) {
+  .hero-contact {
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  /* Image en haut, hauteur fixe */
+  .hc-photo {
+    width: 100%;
+    height: 48vh;
+    height: 48dvh;
+    flex-shrink: 0;
+  }
+  /* Gradient bas → haut sur mobile */
+  .hc-photo::after {
+    background: linear-gradient(to bottom, transparent 55%, #0a0a0a);
+  }
+
+  /* La barre verticale devient horizontale */
+  .hc-vbar {
+    width: 100%;
+    height: 1px;
+    align-self: auto;
+    flex-shrink: 0;
+  }
+
+  /* Contenu texte remplit le reste du viewport */
+  .hc-right {
+    flex: 1;
+    justify-content: center;
+    padding: 28px 22px 36px;
+    padding-top: 28px;
+    gap: 12px;
+  }
+
+  .hc-title {
+    font-size: clamp(54px, 17vw, 80px);
+  }
+
+  /* Coins : repositionner pour coller aux coins du viewport entier */
+  .hc-corner.tl { top: 10px; left: 10px; }
+  .hc-corner.br { bottom: 10px; right: 10px; }
+}
+
+/* ══════════════════════════════════════
+   ANIMATION IMPACT — état initial
+   ══════════════════════════════════════ */
+.hero-contact:not(.hero-impact-ready) .hc-photo,
+.hero-contact:not(.hero-impact-ready) .hc-vbar,
+.hero-contact:not(.hero-impact-ready) .hc-corner,
+.hero-contact:not(.hero-impact-ready) .hc-tag,
+.hero-contact:not(.hero-impact-ready) .hc-title,
+.hero-contact:not(.hero-impact-ready) .hc-rule,
+.hero-contact:not(.hero-impact-ready) .hc-desc,
+.hero-contact:not(.hero-impact-ready) .hc-chips,
+.hero-contact:not(.hero-impact-ready) .hc-cta {
+  opacity: 0;
+}
+
+/* ══════════════════════════════════════
+   ANIMATION IMPACT — desktop (row)
+   ══════════════════════════════════════ */
+.hero-contact.hero-impact-ready .hc-photo {
+  animation: imp-photo-desk 0.55s cubic-bezier(0.22,1,0.36,1) 0s both;
+}
+.hero-contact.hero-impact-ready .hc-vbar {
+  animation: imp-vbar-desk 0.22s ease-out 0.46s both;
+}
+.hero-contact.hero-impact-ready .hc-corner {
+  animation: imp-fade 0.3s ease-out 0.44s both;
+}
+.hero-contact.hero-impact-ready .hc-tag {
+  animation: imp-down 0.3s ease-out 0.5s both;
+}
+.hero-contact.hero-impact-ready .hc-title {
+  animation: imp-title 0.44s cubic-bezier(0.22,1,0.36,1) 0.54s both;
+}
+.hero-contact.hero-impact-ready .hc-rule {
+  animation: imp-rule 0.25s ease-out 0.66s both;
+}
+.hero-contact.hero-impact-ready .hc-desc {
+  animation: imp-up 0.28s ease-out 0.7s both;
+}
+.hero-contact.hero-impact-ready .hc-chips {
+  animation: imp-up 0.3s cubic-bezier(0.22,1,0.36,1) 0.77s both;
+}
+.hero-contact.hero-impact-ready .hc-cta {
+  animation: imp-cta 0.38s cubic-bezier(0.22,1,0.36,1) 0.87s both;
+}
+
+/* ══════════════════════════════════════
+   ANIMATION IMPACT — mobile overrides
+   La photo glisse depuis le haut, pas la gauche
+   ══════════════════════════════════════ */
+@media (max-width: 700px) {
+  .hero-contact.hero-impact-ready .hc-photo {
+    animation: imp-photo-mob 0.55s cubic-bezier(0.22,1,0.36,1) 0s both;
+  }
+  .hero-contact.hero-impact-ready .hc-vbar {
+    animation: imp-vbar-mob 0.2s ease-out 0.5s both;
+  }
+}
+
+/* ── Keyframes ── */
+@keyframes imp-photo-desk {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes imp-photo-mob {
+  from { transform: translateY(-100%); opacity: 0.4; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+@keyframes imp-vbar-desk {
+  from { transform: scaleY(0); transform-origin: top; opacity: 0; }
+  to   { transform: scaleY(1); opacity: 1; }
+}
+@keyframes imp-vbar-mob {
+  from { transform: scaleX(0); transform-origin: left; opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+@keyframes imp-fade {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes imp-down {
+  from { transform: translateY(-20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+@keyframes imp-title {
+  from { transform: translateX(-32px) translateY(-6px); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+@keyframes imp-rule {
+  from { transform: scaleX(0); transform-origin: left; opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+@keyframes imp-up {
+  from { transform: translateY(18px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+@keyframes imp-cta {
+  from { transform: translateY(10px) scale(0.94); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+</style>
+
+<script>
+(function(){
+  'use strict';
+  function initHeroImpact(){
+    var hero = document.querySelector('.hero-contact');
+    if(!hero) return;
+    function tryFire(){
+      var loader = document.getElementById('pg-loader');
+      if(!loader){ fire(); return; }
+      if(loader.classList.contains('pg-hide')){ setTimeout(fire,180); return; }
+      setTimeout(tryFire,80);
+    }
+    function fire(){
+      requestAnimationFrame(function(){ hero.classList.add('hero-impact-ready'); });
+    }
+    if(document.readyState==='loading'){
+      document.addEventListener('DOMContentLoaded',tryFire);
+    } else { tryFire(); }
+  }
+  initHeroImpact();
+})();
+</script>
+
+<!-- ═══════════ SECTION FORMULAIRE ═══════════ -->
+<section id="contact-form" class="py-24 relative">
+  <div class="max-w-4xl mx-auto px-4">
+
+    <div class="mb-12">
+      <h2 class="text-5xl font-display mb-4">PRÊT À PASSER<br><span style="color:transparent;-webkit-text-stroke:1.5px #dd6f08;">À L'ACTION ?</span></h2>
+      <p class="font-athletic text-xl text-greyPulse max-w-xl">Choisis ton coach, ton objectif et ton programme. Le formulaire suivant te guide vers ta transformation.</p>
+    </div>
+
+    <div class="bg-zinc-900/50 p-8 rounded-lg">
+      <form class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="name" class="block font-athletic text-sm mb-2">Nom</label>
+            <input type="text" id="name" name="name" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors" required>
+          </div>
+          <div>
+            <label for="email" class="block font-athletic text-sm mb-2">Courriel</label>
+            <input type="email" id="email" name="email" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors" required>
+          </div>
+        </div>
+        <div>
+          <label for="phone" class="block font-athletic text-sm mb-2">Téléphone</label>
+          <input type="tel" id="phone" name="phone" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors">
+        </div>
+        <div>
+          <label for="subject" class="block font-athletic text-sm mb-2">Sujet</label>
+          <select id="subject" name="subject" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors">
+            <option value="general">Renseignement général</option>
+            <option value="membership">Abonnement</option>
+            <option value="training">Entraînement personnel</option>
+            <option value="classes">Cours en groupe</option>
+          </select>
+        </div>
+        <div>
+          <label for="coach" class="block font-athletic text-sm mb-2">Coach souhaité</label>
+          <select id="coach" name="coach" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors">
+            <option value="">Pas de préférence</option>
+            <option value="james-carter">James Carter — Force &amp; Hypertrophie</option>
+            <option value="emma-dubois">Emma Dubois — HIIT &amp; Cardio</option>
+            <option value="marcus-fontaine">Marcus Fontaine — Haltérophilie Élite</option>
+            <option value="chen-wei">Chen Wei — Mobilité &amp; Fonctionnel</option>
+          </select>
+        </div>
+        <div>
+          <label for="training_type" class="block font-athletic text-sm mb-2">Type d'entraînement</label>
+          <select id="training_type" name="training_type" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors">
+            <option value="">Choisir un type</option>
+            <option value="coaching-prive">Coaching privé (1-on-1)</option>
+            <option value="semi-prive">Semi-privé (2–4 personnes)</option>
+            <option value="programme">Programme personnalisé</option>
+            <option value="bilan">Bilan fitness initial</option>
+          </select>
+        </div>
+        <div>
+          <label for="message" class="block font-athletic text-sm mb-2">Message</label>
+          <textarea id="message" name="message" rows="4" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors" required></textarea>
+        </div>
+        <button type="submit" class="w-full bg-gradient-to-r from-orangePulse to-red-500 text-white py-4 px-8 rounded font-athletic uppercase tracking-wider hover:from-white hover:to-white hover:text-orangePulse transition-all duration-300">Envoyer</button>
+      </form>
+    </div>
+
   </div>
 </section>
 
-<section class="py-24 relative">
+<!-- ═══════════ MAP ═══════════ -->
+<section class="py-12 md:py-24 relative overflow-hidden">
   <div class="max-w-7xl mx-auto px-4">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+    <div class="rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50" style="height:clamp(250px,50vw,500px);">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42050.45!2d-71.2579!3d46.8139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb896f3c8bc7509%3A0x64af7d8d7b8db80!2sQu%C3%A9bec%2C%20QC!5e0!3m2!1sfr!2sca"
+        width="100%" height="100%"
+        allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        style="border:0;filter:grayscale(30%) contrast(1.1);">
+      </iframe>
+    </div>
+  </div>
+</section>
 
-      <div>
-        <h2 class="text-4xl font-display mb-8">On Est Là Pour Toi</h2>
-        <p class="font-athletic text-xl text-greyPulse mb-12">Prêt à transformer ton parcours fitness? Notre équipe est là pour répondre à tes questions et t'aider à te lancer.</p>
-        <div class="space-y-8">
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 rounded-lg bg-orangePulse/10 flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-orangePulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></div>
-            <div><h3 class="text-xl font-display mb-2">Adresse</h3><p class="font-athletic text-greyPulse">4521 Rue Saint-Laurent</p><p class="font-athletic text-greyPulse">Québec, QC G1R 2K4</p></div>
-          </div>
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 rounded-lg bg-orangePulse/10 flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-orangePulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
-            <div><h3 class="text-xl font-display mb-2">Contact</h3><p class="font-athletic text-greyPulse">Tél : +1 (809) 878-6115</p><p class="font-athletic text-greyPulse">info@ironpulse.ca</p></div>
-          </div>
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 rounded-lg bg-orangePulse/10 flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-orangePulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
-            <div><h3 class="text-xl font-display mb-2">Heures d'ouverture</h3><p class="font-athletic text-greyPulse">Lun - Ven : 5h - 22h</p><p class="font-athletic text-greyPulse">Samedi : 7h - 20h</p><p class="font-athletic text-greyPulse">Dimanche : 8h - 18h</p></div>
-          </div>
+<!-- ═══════════ INFO ADRESSE / CONTACT / HEURES ═══════════ -->
+<section class="py-16 relative">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+      <div class="flex items-start space-x-4">
+        <div class="w-12 h-12 rounded-lg bg-orangePulse/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-6 h-6 text-orangePulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <div>
+          <h3 class="text-xl font-display mb-2">Adresse</h3>
+          <p class="font-athletic text-greyPulse">4521 Rue Saint-Laurent</p>
+          <p class="font-athletic text-greyPulse">Québec, QC G1R 2K4</p>
         </div>
       </div>
 
-      <div class="bg-zinc-900/50 p-8 rounded-lg">
-        <form class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label for="name" class="block font-athletic text-sm mb-2">Nom</label>
-              <input type="text" id="name" name="name" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors" required>
-            </div>
-            <div>
-              <label for="email" class="block font-athletic text-sm mb-2">Courriel</label>
-              <input type="email" id="email" name="email" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors" required>
-            </div>
-          </div>
-
-          <div>
-            <label for="phone" class="block font-athletic text-sm mb-2">Téléphone</label>
-            <input type="tel" id="phone" name="phone" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors">
-          </div>
-
-          <div>
-            <label for="subject" class="block font-athletic text-sm mb-2">Sujet</label>
-            <select id="subject" name="subject" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors">
-              <option value="general">Renseignement général</option>
-              <option value="membership">Abonnement</option>
-              <option value="training">Entraînement personnel</option>
-              <option value="classes">Cours en groupe</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="coach" class="block font-athletic text-sm mb-2">Coach souhaité</label>
-            <select id="coach" name="coach" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors">
-              <option value="">Pas de préférence</option>
-              <option value="james-carter">James Carter — Force &amp; Hypertrophie</option>
-              <option value="emma-dubois">Emma Dubois — HIIT &amp; Cardio</option>
-              <option value="marcus-fontaine">Marcus Fontaine — Haltérophilie Élite</option>
-              <option value="chen-wei">Chen Wei — Mobilité &amp; Fonctionnel</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="training_type" class="block font-athletic text-sm mb-2">Type d'entraînement</label>
-            <select id="training_type" name="training_type" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors">
-              <option value="">Choisir un type</option>
-              <option value="coaching-prive">Coaching privé (1-on-1)</option>
-              <option value="semi-prive">Semi-privé (2–4 personnes)</option>
-              <option value="programme">Programme personnalisé</option>
-              <option value="bilan">Bilan fitness initial</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="message" class="block font-athletic text-sm mb-2">Message</label>
-            <textarea id="message" name="message" rows="4" class="w-full bg-black/30 border border-white/10 rounded px-4 py-3 font-athletic text-white focus:outline-none focus:border-orangePulse transition-colors" required></textarea>
-          </div>
-
-          <button type="submit" class="w-full bg-gradient-to-r from-orangePulse to-red-500 text-white py-4 px-8 rounded font-athletic uppercase tracking-wider hover:from-white hover:to-white hover:text-orangePulse transition-all duration-300">Envoyer</button>
-        </form>
+      <div class="flex items-start space-x-4">
+        <div class="w-12 h-12 rounded-lg bg-orangePulse/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-6 h-6 text-orangePulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </div>
+        <div>
+          <h3 class="text-xl font-display mb-2">Contact</h3>
+          <p class="font-athletic text-greyPulse">Tél : +1 (809) 878-6115</p>
+          <p class="font-athletic text-greyPulse">info@ironpulse.ca</p>
+        </div>
       </div>
 
-    </div>
-  </div>
-</section>
+      <div class="flex items-start space-x-4">
+        <div class="w-12 h-12 rounded-lg bg-orangePulse/10 flex items-center justify-center flex-shrink-0">
+          <svg class="w-6 h-6 text-orangePulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div>
+          <h3 class="text-xl font-display mb-2">Heures d'ouverture</h3>
+          <p class="font-athletic text-greyPulse">Lun - Ven : 5h - 22h</p>
+          <p class="font-athletic text-greyPulse">Samedi : 7h - 20h</p>
+          <p class="font-athletic text-greyPulse">Dimanche : 8h - 18h</p>
+        </div>
+      </div>
 
-<section class="py-12 md:py-24 relative overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4">
-    <div class="rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50" style="height: clamp(250px, 50vw, 500px);">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42050.45!2d-71.2579!3d46.8139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb896f3c8bc7509%3A0x64af7d8d7b8db80!2sQu%C3%A9bec%2C%20QC!5e0!3m2!1sfr!2sca" width="100%" height="100%" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border: 0px; filter: grayscale(30%) contrast(1.1);"></iframe>
     </div>
   </div>
 </section>
 
 <footer></footer>
+
 </body>
 </html>

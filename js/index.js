@@ -174,15 +174,54 @@
     });
   }
 
-  /* ── 1. LOADER + HERO ENTRANCE ──────────────────────────────────── */
-  function initLoaderAndHero() {
+  /* ── 1. LOADER CONTROL (AHORA SOLO CONTROL, no creación) ────────── */
+  function initLoaderControl() {
+  var loader = document.getElementById('pg-loader');
+  if (!loader || loader.dataset.controlled) return;
+  loader.dataset.controlled = 'true';
+
+  var bar = document.getElementById('pg-bar-fill');
+  if (!bar) return;
+
+  var start = Date.now();
+  var p = 0;
+  var t = setInterval(function(){
+    p = Math.min(p + (p<70?22:p<90?8:2), 94);
+    bar.style.width = p + '%';
+  }, 80);
+
+  function hideLoader() {
+    if (hideLoader.done) return;
+    var elapsed = Date.now() - start;
+    var delay = Math.max(0, 400 - elapsed);
+    setTimeout(function(){
+      hideLoader.done = true;
+      clearInterval(t);
+      bar.style.width = '100%';
+      setTimeout(function(){
+        loader.classList.add('pg-hide');
+        setTimeout(function(){ if (loader.parentNode) loader.remove(); }, 420);
+      }, 80);
+    }, delay);
+  }
+
+  window.addEventListener('load', hideLoader);
+  var fallback = setTimeout(hideLoader, 2000);
+  window.addEventListener('load', function(){ clearTimeout(fallback); });
+}
+
+  /* ── 2. HERO ENTRANCE ───────────────────────────────────────────── */
+  function initHeroEntrance() {
     var hero = document.querySelector('section.relative.w-full') ||
                document.querySelector('section.relative.h-\\[70vh\\]') ||
                document.querySelector('section.relative.h-\\[100vh\\]') ||
                document.querySelector('section.relative');
 
-    var veil = null;
-    if (hero) {
+    if (!hero) return;
+
+    // Crear velo para animación de entrada (opcional)
+    var veil = document.getElementById('pg-hero-veil');
+    if (!veil) {
       var vs = document.createElement('style');
       vs.textContent = [
         '#pg-hero-veil{position:absolute;inset:0;z-index:5;background:#0a0a0a;',
@@ -190,15 +229,14 @@
         '#pg-hero-veil.pg-veil-out{opacity:0;}',
       ].join('');
       document.head.appendChild(vs);
+      
       veil = document.createElement('div');
       veil.id = 'pg-hero-veil';
       hero.style.position = 'relative';
       hero.appendChild(veil);
     }
 
-    var heroText = hero
-      ? (hero.querySelector('.relative.z-10') || hero.querySelector('.relative.h-full'))
-      : null;
+    var heroText = hero.querySelector('.relative.z-10') || hero.querySelector('.relative.h-full');
 
     function startHeroEntrance() {
       if (veil) {
@@ -207,9 +245,11 @@
           setTimeout(function () { if (veil.parentNode) veil.remove(); }, 950);
         });
       }
+      
       if (hero) {
         requestAnimationFrame(function () { hero.classList.add('hero-anim-ready'); });
       }
+      
       if (heroText && !hero.classList.contains('hero-index-section')) {
         heroText.style.opacity = '0';
         heroText.style.transform = 'translateY(24px)';
@@ -223,55 +263,22 @@
       }
     }
 
-    if (document.readyState === 'complete') { startHeroEntrance(); return; }
-
-    var ls = document.createElement('style');
-    ls.textContent = [
-      '#pg-loader{position:fixed;inset:0;z-index:9999;background:#0a0a0a;',
-        'display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;',
-        'transition:opacity 0.4s ease;}',
-      '#pg-loader.pg-hide{opacity:0;pointer-events:none;}',
-      '#pg-loader-logo{font-family:"Bebas Neue",sans-serif;font-size:3.5rem;',
-        'letter-spacing:6px;color:#fff;animation:pg-pulse 1.4s ease-in-out infinite;}',
-      '#pg-loader-logo span{color:#FF5F1F;}',
-      '#pg-bar-track{width:160px;height:2px;background:rgba(255,255,255,0.08);',
-        'border-radius:2px;overflow:hidden;}',
-      '#pg-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,#FF5F1F,#ef4444);',
-        'border-radius:2px;transition:width 0.25s ease;}',
-      '@keyframes pg-pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}',
-    ].join('');
-    document.head.appendChild(ls);
-
-    var loader = document.createElement('div');
-    loader.id = 'pg-loader';
-    loader.setAttribute('aria-hidden', 'true');
-    loader.innerHTML = '<div id="pg-loader-logo">IRON PULSE<span>.</span></div>'
-                     + '<div id="pg-bar-track"><div id="pg-bar-fill"></div></div>';
-    document.body.appendChild(loader);
-
-    var bar = document.getElementById('pg-bar-fill');
-    var progress = 0;
-    var ticker = setInterval(function () {
-      var step = progress < 70 ? 14 : progress < 90 ? 5 : 1;
-      progress = Math.min(progress + step, 94);
-      bar.style.width = progress + '%';
-    }, 100);
-
-    function hideLoader() {
-      clearInterval(ticker);
-      bar.style.width = '100%';
-      setTimeout(function () {
-        loader.classList.add('pg-hide');
-        setTimeout(function () { loader.remove(); startHeroEntrance(); }, 420);
-      }, 80);
+    // Si la página ya está cargada, ejecutar inmediatamente
+    if (document.readyState === 'complete') {
+      startHeroEntrance();
+    } else {
+      // Esperar a que el loader termine su trabajo
+      var checkLoader = setInterval(function() {
+        var loader = document.getElementById('pg-loader');
+        if (!loader || loader.classList.contains('pg-hide')) {
+          clearInterval(checkLoader);
+          startHeroEntrance();
+        }
+      }, 100);
     }
-
-    window.addEventListener('load', hideLoader);
-    var fallback = setTimeout(hideLoader, 5000);
-    window.addEventListener('load', function () { clearTimeout(fallback); });
   }
 
-  /* ── 2. ROUTE MAP & LINKS ───────────────────────────────────────── */
+  /* ── 3. ROUTE MAP & LINKS ───────────────────────────────────────── */
   var ROUTES = {
     '/':           'index.html',
     '/classes':    'classes.html',
@@ -298,7 +305,7 @@
     });
   }
 
-  /* ── 3. HERO WEBP ───────────────────────────────────────────────── */
+  /* ── 4. HERO WEBP ───────────────────────────────────────────────── */
   function replaceHeroVideos() {
     var v1 = document.getElementById('hero-video-1');
     var v2 = document.getElementById('hero-video-2');
@@ -312,7 +319,7 @@
     if (v2) v2.remove();
   }
 
-  /* ── 4. NAVBAR SCROLL ───────────────────────────────────────────── */
+  /* ── 5. NAVBAR SCROLL ───────────────────────────────────────────── */
   function initNavbar() {
     var nav = document.querySelector('nav');
     if (!nav) return;
@@ -328,7 +335,7 @@
     onScroll();
   }
 
-  /* ── 5. MOBILE MENU ─────────────────────────────────────────────── */
+  /* ── 6. MOBILE MENU ─────────────────────────────────────────────── */
   function initMobileMenu() {
     var hamburger = document.querySelector('nav button');
     if (!hamburger) return;
@@ -440,7 +447,7 @@
     ctaDiv.querySelector('a').addEventListener('click', close);
   }
 
-  /* ── 6. SCROLL REVEAL ───────────────────────────────────────────── */
+  /* ── 7. SCROLL REVEAL ───────────────────────────────────────────── */
   function initReveal() {
     if (!('IntersectionObserver' in window)) return;
     var observer = new IntersectionObserver(function (entries) {
@@ -461,17 +468,18 @@
     });
   }
 
-  /* ── INIT ────────────────────────────────────────────────────────── */
+  /* ── INIT PRINCIPAL ─────────────────────────────────────────────── */
   function init() {
     injectLayout();        /* nav + footer */
     injectResourceHints();
-    initLoaderAndHero();
+    initLoaderControl();   /* Ahora solo controla el loader existente */
     fixLinks();
     replaceHeroVideos();
     initNavbar();
     initMobileMenu();
     initReveal();
     initLazyImages();
+    initHeroEntrance();    /* Animación hero después del loader */
   }
 
   if (document.readyState === 'loading') {

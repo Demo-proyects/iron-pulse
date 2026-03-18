@@ -1,0 +1,162 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+--or:#FF5F1F; --blk:#0a0a0a; --d1:#111; --d2:#161616;
+--bord:rgba(255,255,255,0.07); --gr:#777; --w:#fff;}
+html { scroll-behavior: smooth; }
+body { background:var(--blk); color:var(--w); font-family:'Inter',sans-serif; overflow-x:hidden; }
+/*Hero*/
+.hero {
+      position: relative; min-height: 100vh;
+      display: flex; overflow: hidden;
+    }
+    /* Photo pleine hauteur à gauche */
+    .hero-photo {
+      position: absolute; top: 0; left: 0; bottom: 0; width: 55%;
+      background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200') center / cover no-repeat;
+      animation: zoom 20s ease-in-out alternate infinite;
+    }
+    @keyframes zoom { from { scale: 1.04; } to { scale: 1; } }
+    .hero-photo::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(10,10,10,.1) 40%, rgba(10,10,10,1) 100%);
+    }
+    /* Barre décorative verticale orange */
+    .v-bar {
+      position: absolute; top: 0; left: 55%; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, rgba(255,95,31,.4) 25%, rgba(255,95,31,.4) 75%, transparent);
+      z-index: 3;
+    }
+    /* Scan lines */
+    .scan {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(to bottom, transparent, transparent 3px, rgba(0,0,0,.05) 3px, rgba(0,0,0,.05) 4px);
+      pointer-events: none; z-index: 2;
+    }
+    /* Contenu côté droit */
+    .hero-right {
+      position: relative; z-index: 4;
+      margin-left: 52%;
+      flex: 1;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 3rem 5rem 4rem;
+    }
+    .tag {
+      font-family: 'Oswald', sans-serif;
+      font-size: .58rem; letter-spacing: 5px; text-transform: uppercase;
+      color: rgba(255,95,31,.75); margin-bottom: 14px;
+    }
+    .title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 7vw, 8rem);
+      line-height: .83; color: #fff; letter-spacing: 2px;
+    }
+    .title .outline {
+      display: block; color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255,95,31,.55);
+    }
+    .rule { width: 32px; height: 2px; background: var(--or); margin: 20px 0 16px; }
+    .desc {
+      font-family: 'Oswald', sans-serif;
+      font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
+      color: #444; margin-bottom: 28px; line-height: 1.7;
+    }
+    .stats { display: flex; gap: 28px; margin-bottom: 36px; }
+    .stat-v {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem; color: var(--or); line-height: 1; display: block;
+    }
+    .stat-l {
+      font-family: 'Oswald', sans-serif;
+      font-size: .55rem; letter-spacing: 2px; text-transform: uppercase; color: #3a3a3a;
+    }
+    .stat-divider { width: 1px; background: rgba(255,255,255,.06); align-self: stretch; }
+    .cta-btn {
+      display: inline-block; padding: .9rem 2.2rem;
+      font-family: 'Oswald', sans-serif; font-size: .75rem; font-weight: 600;
+      letter-spacing: 4px; text-transform: uppercase; text-decoration: none;
+      background: var(--or); color: #fff; transition: background .2s, color .2s;
+      align-self: flex-start;
+    }
+    .cta-btn:hover { background: #fff; color: var(--blk); }
+    /* Coin décoratif haut gauche sur photo */
+    .corner { position: absolute; width: 28px; height: 28px; z-index: 6; }
+    .corner.tl { top: 20px; left: 2rem; border-top: 1px solid rgba(255,95,31,.4); border-left: 1px solid rgba(255,95,31,.4); }
+    .corner.br { bottom: 20px; right: 2rem; border-bottom: 1px solid rgba(255,95,31,.4); border-right: 1px solid rgba(255,95,31,.4); }
+ 
+    /* Badge flottant */
+    .badge {
+      position: absolute; bottom: 32px; left: 3rem; z-index: 5;
+      display: flex; border: 1px solid rgba(255,95,31,.2);
+      background: rgba(10,10,10,.6); backdrop-filter: blur(8px);
+    }
+    .badge-chip {
+      display: flex; flex-direction: column; gap: 3px;
+      padding: .7rem 1.2rem; border-right: 1px solid rgba(255,95,31,.15);
+      align-items: center;
+    }
+    .badge-chip:last-child { border-right: none; }
+    .badge-l { font-family: 'Oswald', sans-serif; font-size: .5rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,95,31,.7); }
+    .badge-v { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: #fff; letter-spacing: 1px; }
+ 
+    @media (max-width: 768px) {
+      .hero { flex-direction: column; }
+      .hero-photo { position: relative; width: 100%; height: 45vh; }
+      .hero-photo::after { background: linear-gradient(to bottom, transparent 50%, rgba(10,10,10,1) 100%); }
+      .v-bar { display: none; }
+      .hero-right { margin-left: 0; padding: 2.5rem 1.5rem 8rem; }
+      .badge { left: 1.5rem; }
+    }
+
+/* ═══════════════════════════════════════════════════════════════
+   ANIMATION SWEEP — ajout pur, aucun design modifié
+   Trigger : index.js ajoute .hero-anim-ready sur section.relative
+   ═══════════════════════════════════════════════════════════════ */
+
+/* État initial : tout invisible tant que hero-anim-ready absent */
+.hero:not(.hero-anim-ready) .hero-photo,
+.hero:not(.hero-anim-ready) .v-bar,
+.hero:not(.hero-anim-ready) .corner,
+.hero:not(.hero-anim-ready) .tag,
+.hero:not(.hero-anim-ready) .title,
+.hero:not(.hero-anim-ready) .rule,
+.hero:not(.hero-anim-ready) .desc,
+.hero:not(.hero-anim-ready) .stats,
+.hero:not(.hero-anim-ready) .cta-btn,
+.hero:not(.hero-anim-ready) .badge {
+  opacity: 0;
+}
+
+/* Keyframes */
+@keyframes swp-photo {
+  from { clip-path: inset(0 100% 0 0); opacity: 0.3; }
+  to   { clip-path: inset(0 0% 0 0);   opacity: 1;   }
+}
+@keyframes swp-vbar {
+  from { transform: scaleY(0); transform-origin: top; opacity: 0; }
+  to   { transform: scaleY(1); opacity: 1; }
+}
+@keyframes swp-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes swp-right {
+  from { clip-path: inset(0 0 0 110%); opacity: 0.1; transform: translateX(14px); }
+  to   { clip-path: inset(0 0 0 0%);   opacity: 1;   transform: translateX(0);    }
+}
+@keyframes swp-rule {
+  from { transform: scaleX(0); transform-origin: left; opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+
+/* Animations déclenchées par hero-anim-ready */
+.hero.hero-anim-ready .hero-photo { animation: swp-photo 0.65s cubic-bezier(0.16,1,0.3,1) 0s both, zoom 20s ease-in-out alternate infinite; }
+.hero.hero-anim-ready .v-bar      { animation: swp-vbar  0.22s ease-out 0.58s both; }
+.hero.hero-anim-ready .corner     { animation: swp-fade  0.30s ease-out 0.54s both; }
+.hero.hero-anim-ready .tag        { animation: swp-right 0.38s cubic-bezier(0.16,1,0.3,1) 0.60s both; }
+.hero.hero-anim-ready .title      { animation: swp-right 0.44s cubic-bezier(0.16,1,0.3,1) 0.66s both; }
+.hero.hero-anim-ready .rule       { animation: swp-rule  0.26s ease-out 0.76s both; }
+.hero.hero-anim-ready .desc       { animation: swp-right 0.34s cubic-bezier(0.16,1,0.3,1) 0.82s both; }
+.hero.hero-anim-ready .stats      { animation: swp-right 0.36s cubic-bezier(0.16,1,0.3,1) 0.88s both; }
+.hero.hero-anim-ready .cta-btn    { animation: swp-right 0.36s cubic-bezier(0.16,1,0.3,1) 0.96s both; }
+.hero.hero-anim-ready .badge      { animation: swp-right 0.30s cubic-bezier(0.16,1,0.3,1) 1.06s both; }

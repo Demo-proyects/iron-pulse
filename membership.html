@@ -1,36 +1,38 @@
 <!DOCTYPE html>
 <html lang="fr-CA">
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" href="/logo.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adhésion — Iron Pulse</title>
-  <meta name="description" content="Iron Pulse Montréal — Choisissez votre formule et commencez votre transformation. Aucun frais d'inscription.">
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <script src="js/index.js" defer></script>
-  <link rel="stylesheet" href="css/index.css">
-
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --or:#FF5F1F; --blk:#0a0a0a; --d1:#111; --d2:#161616;
-      --bord:rgba(255,255,255,0.07); --gr:#777; --w:#fff;
-    }
-    html { scroll-behavior: smooth; }
-    body { background:var(--blk); color:var(--w); font-family:'Inter',sans-serif; overflow-x:hidden; }
-    
-    /*Hero*/
-    .hero {
+<meta charset="UTF-8">
+<link rel="icon" href="/logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adhésion — Iron Pulse</title>
+<meta name="description" content="Iron Pulse Montréal — Choisissez votre formule et commencez votre transformation. Aucun frais d'inscription.">
+<link rel="preload" href="font/BebasNeue-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="font/Oswald-VariableFont_wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="script" href="js/index.js">
+<script src="js/index.js" defer></script>
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/hero-membership.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+--or:#FF5F1F; --blk:#0a0a0a; --d1:#111; --d2:#161616;
+--bord:rgba(255,255,255,0.07); --gr:#777; --w:#fff;}
+html { scroll-behavior: smooth; }
+body { background:var(--blk); color:var(--w); font-family:'Inter',sans-serif; overflow-x:hidden; }
+/*Hero*/
+.hero {
       position: relative; min-height: 100vh;
       display: flex; overflow: hidden;
     }
     /* Photo pleine hauteur à gauche */
     .hero-photo {
       position: absolute; top: 0; left: 0; bottom: 0; width: 55%;
-      background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200') center / cover no-repeat;
+      background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=75&w=640') center / cover no-repeat;
       animation: zoom 20s ease-in-out alternate infinite;
     }
-    @keyframes zoom { from { scale: 1.04; } to { scale: 1; } }
+    @media(min-width:768px){
+      .hero-photo{background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200')}
+    }
     .hero-photo::after {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(to right, rgba(10,10,10,.1) 40%, rgba(10,10,10,1) 100%);
@@ -301,7 +303,10 @@
   </style>
 </head>
 <body>
-<section class="hero">
+<!-- LOADER INLINE - Se muestra inmediatamente -->
+<div id="pg-loader" class="pg-loader" aria-hidden="false"><div class="pg-loader-logo">IRON PULSE<span>.</span></div><div class="pg-bar-track"><div class="pg-bar-fill" id="pg-bar-fill"></div></div></div>
+<style>.pg-loader{position:fixed;inset:0;z-index:9999;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transition:opacity .4s ease}.pg-loader.pg-hide{opacity:0;pointer-events:none}.pg-loader-logo{font-family:"Bebas Neue",sans-serif;font-size:3.5rem;letter-spacing:6px;color:#fff;animation:pg-pulse 1.4s ease-in-out infinite}.pg-loader-logo span{color:#FF5F1F}.pg-bar-track{width:160px;height:2px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}.pg-bar-fill{height:100%;width:0;background:linear-gradient(90deg,#FF5F1F,#ef4444);border-radius:2px;transition:width .25s ease}@keyframes pg-pulse{0%,100%{opacity:1}50%{opacity:.4}}</style>
+<section class="hero relative" data-hero="membership">
   <div class="hero-photo"></div>
   <div class="v-bar"></div>
   <div class="scan"></div>
@@ -605,6 +610,27 @@
   document.querySelectorAll('.rev,.plan-card,.faq-item,.cta-inner').forEach(function(el){ io.observe(el); });
 
 })();
+
+/* CTA → scroll al toggle + demo anual */
+  var ctaBtn = document.querySelector('a.cta-btn[href="membership.html"]');
+  if(ctaBtn){
+    ctaBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      var toggle = document.querySelector('.toggle-section');
+      if(!toggle) return;
+      var offset = window.innerWidth < 768 ? 60 : 10;
+      var top = toggle.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+      var btnYearly  = document.querySelector('.toggle-btn[data-period="yearly"]');
+      var btnMonthly = document.querySelector('.toggle-btn[data-period="monthly"]');
+      setTimeout(function(){
+        if(btnYearly) btnYearly.click();
+        setTimeout(function(){
+          if(btnMonthly) btnMonthly.click();
+        }, 1500);
+      }, 600);
+    });
+  }
 </script>
 </body>
 </html>
